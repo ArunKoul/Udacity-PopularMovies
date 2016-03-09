@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="action_settings">Settings</string>
+    <string name="pref_sort_by_label">Sort By</string>
+    <string name="pref_sort_by_default_value">Most Popular</string>
+
+    <string name="pref_sort_by_label_most_popular">Most Popular</string>
+    <string name="pref_sort_by_label_high_rated">Highest Rated</string>
+
+    <string name="pref_sort_by_key" translatable="false">sortby</string>
+    <string name="pref_sort_by_most_popular" translatable="false">mostpopular</string>
+    <string name="pref_sort_by_high_rated" translatable="false">highrated</string>
+    <string name="loading_movies">Loading Movies...</string>
+
+</resources>
