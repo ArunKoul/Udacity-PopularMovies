@@ -1,10 +1,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.udacity.assigmment.popularmovies.popularmovies.MainActivity">
+    tools:context=".ui.activity.MainActivity">
+
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/menuSortPopular"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Sort By Most Popular"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menuSortRating"
+        android:orderInCategory="100"
+        android:title="Sort By Highest Rated"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuSortFavorite"
+        android:orderInCategory="100"
+        android:title="Favorite"
+        app:showAsAction="never" />
+
 </menu>

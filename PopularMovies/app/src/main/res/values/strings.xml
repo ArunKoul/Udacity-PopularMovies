@@ -6,10 +6,31 @@
 
     <string name="pref_sort_by_label_most_popular">Most Popular</string>
     <string name="pref_sort_by_label_high_rated">Highest Rated</string>
+    <string name="pref_sort_by_label_favorite">Favorites</string>
 
     <string name="pref_sort_by_key" translatable="false">sortby</string>
     <string name="pref_sort_by_most_popular" translatable="false">mostpopular</string>
     <string name="pref_sort_by_high_rated" translatable="false">highrated</string>
+    <string name="pref_sort_by_favorite" translatable="false">favorites</string>
+
     <string name="loading_movies">Loading Movies...</string>
+    <string name="internal_server_error">Internal Server Error</string>
+
+
+    <string name="content_authority">com.udacity.assigmment.popularmovies.popularmovies</string>
+    <string name="share_using">Share using</string>
+    <string name="i_found_intresting_movie">I found intresting movie.</string>
+    <string name="check_the_trailer_at"><![CDATA["</br>Check the trailer @ "]]></string>
+    <string name="youtube_base_link">https://www.youtube.com/watch?v=</string>
+    <string name="shared_from_popular_movie_app"><![CDATA[</br>Shared from Popular Movie app.]]></string>
+    <string name="whitespace">" "</string>
+    <string name="rating_value">%.1f/10</string>
+    <string name="mark_as_favorite">MARK AS FAVORITE</string>
+    <string name="unmark_as_favorite">UN-MARK AS FAVORITE</string>
+    <string name="movie_plot">Movie Plot:</string>
+    <string name="trailer">Trailer:</string>
+    <string name="review">Review:</string>
+    <string name="loading_movie_trialer_and_reviews_nplease_wait">Loading Movie Trialer and Reviews.\nPlease wait...</string>
+    <string name="loading_movies_nplease_wait">Loading Movies.\nPlease wait...</string>
 
 </resources>

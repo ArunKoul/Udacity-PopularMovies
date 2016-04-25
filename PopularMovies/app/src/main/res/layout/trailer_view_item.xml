@@ -1,0 +1,39 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/trailer_item_height"
+    android:layout_margin="@dimen/card_small_margin">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/trailer_item_thumbnail"
+            android:layout_width="@dimen/trailer_image_width"
+            android:layout_height="@dimen/trailer_image_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/trailer_item_thumbnail_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/trailer_item_thumbnail"
+            android:layout_alignRight="@id/trailer_item_thumbnail"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_play_phone" />
+
+        <TextView
+            android:id="@+id/trailer_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/trailer_item_thumbnail"
+            android:maxLines="3"
+            android:padding="@dimen/small_margin"
+            android:textSize="@dimen/textview_small_size" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

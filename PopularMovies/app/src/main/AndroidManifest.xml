@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize|keyboardHidden">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,9 +22,16 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/app_name" />
+        <!--<provider-->
+        <!--android:authorities="com.udacity.assigmment.popularmovies.popularmovies.data.PopularMovieProvider"-->
+        <!--android:name="com.udacity.assigmment.popularmovies.popularmovies.data.generated.PopularMovieProvider"-->
+        <!--android:exported="false"/>-->
+
+        <provider
+            android:name=".data.generated.PopularMovieProvider"
+            android:authorities="@string/content_authority"
+            android:exported="false"
+            android:multiprocess="true" />
 
     </application>
 

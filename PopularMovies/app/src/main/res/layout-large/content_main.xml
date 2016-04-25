@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:baselineAligned="false"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -11,21 +11,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.udacity.assigmment.popularmovies.popularmovies.MainActivity"
+    tools:context=".ui.activity.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <fragment android:id="@+id/movie_fragment"
-        android:name="com.udacity.assigmment.popularmovies.popularmovies.MovieFragment"
+    <fragment
+        android:id="@+id/movie_fragment"
+        android:name="com.udacity.assigmment.popularmovies.popularmovies.ui.fragment.MovieFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
-    <fragment android:id="@+id/detail_fragment"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:name="com.udacity.assigmment.popularmovies.popularmovies.DetailFragment"
+    <FrameLayout
+        android:id="@+id/detail_fragment_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2" />
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_weight="1" />
 
 </LinearLayout>
