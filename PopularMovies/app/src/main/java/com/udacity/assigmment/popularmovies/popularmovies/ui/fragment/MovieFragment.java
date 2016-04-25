@@ -150,7 +150,6 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
         }
 
         subscription = moviesData
-                //.subscribeOn(Schedulers.newThread())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<MovieContract>() {
@@ -198,9 +197,6 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception.
         try {
             mOnMovieSelectedListenerCallback = (OnMovieSelectedListener) context;
             mOnHttpResponseListnerCallback = (OnHttpResponseListner) context;

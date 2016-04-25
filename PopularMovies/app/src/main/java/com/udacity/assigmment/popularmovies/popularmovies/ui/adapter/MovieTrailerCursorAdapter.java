@@ -96,7 +96,5 @@ public class MovieTrailerCursorAdapter extends CursorRecyclerViewAdapter<MovieTr
             super(view);
             ButterKnife.bind(this, view);
         }
-
     }
-
 }

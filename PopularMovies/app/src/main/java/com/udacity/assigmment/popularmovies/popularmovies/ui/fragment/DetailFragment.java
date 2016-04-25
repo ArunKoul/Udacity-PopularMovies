@@ -103,8 +103,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private MovieReviewCursorAdapter mMovieReviewCursorAdapter;
     private Subscription mMovieReviewSubscription;
 
-    public DetailFragment() {
-    }
+    public DetailFragment() {}
 
 
     @Override
@@ -192,10 +191,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                             isMovieReviewLoading = false;
 
                             if (isMovieTrailerLoading) {
-                                mProgressbarMsgTextView.setText("Loading Movie Trailer and Reviews.\nPlease wait...");
+                                mProgressbarMsgTextView.setText(R.string.loading_trailer_and_review);
 
                             } else {
-                                mProgressbarMsgTextView.setText("Loading Movie Reviews.\nPlease wait...");
+                                mProgressbarMsgTextView.setText(R.string.loading_review);
                             }
                         }
 
@@ -205,7 +204,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                             isMovieReviewLoading = false;
 
                             if (isMovieTrailerLoading) {
-                                mProgressbarMsgTextView.setText("Loading Movie Trailer.\nPlease wait...");
+                                mProgressbarMsgTextView.setText(R.string.loading_trailer);
 
                             } else {
                                 mProgressbarLayout.setVisibility(View.GONE);
@@ -217,18 +216,14 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
                         @Override
                         public void onError(Throwable e) {
-
-                            Log.e(LOG_TAG, "Error while retriving movies review", e);
-
                             isMovieReviewLoading = false;
 
                             if (isMovieTrailerLoading) {
-                                mProgressbarMsgTextView.setText("Loading Movie Trailer.\nPlease wait...");
+                                mProgressbarMsgTextView.setText(R.string.loading_trailer);
 
                             } else {
                                 mProgressbarLayout.setVisibility(View.GONE);
                             }
-
 
                         }
 
@@ -275,10 +270,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                             isMovieTrailerLoading = true;
 
                             if (isMovieReviewLoading) {
-                                mProgressbarMsgTextView.setText("Loading Movie Trialer and Reviews.\nPlease wait...");
+                                mProgressbarMsgTextView.setText(R.string.loading_trailer_and_review);
 
                             } else {
-                                mProgressbarMsgTextView.setText("Loading Movie Trialer.\nPlease wait...");
+                                mProgressbarMsgTextView.setText(R.string.loading_trailer);
                             }
                         }
 
@@ -287,7 +282,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                             isMovieTrailerLoading = false;
 
                             if (isMovieReviewLoading) {
-                                mProgressbarMsgTextView.setText("Loading Movie Reviews.\nPlease wait...");
+                                mProgressbarMsgTextView.setText(R.string.loading_review);
 
                             } else {
                                 mProgressbarLayout.setVisibility(View.GONE);
@@ -299,13 +294,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
                         @Override
                         public void onError(Throwable e) {
-
-                            Log.e(LOG_TAG, "Error while retriving movies trailer", e);
-
                             isMovieTrailerLoading = false;
 
                             if (isMovieReviewLoading) {
-                                mProgressbarMsgTextView.setText("Loading Movie Reviews.\nPlease wait...");
+                                mProgressbarMsgTextView.setText(R.string.loading_review);
 
                             } else {
                                 mProgressbarLayout.setVisibility(View.GONE);
@@ -315,8 +307,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
                         @Override
                         public void onNext(MovieTrailerVideoContract movieTrailerVideoContract) {
-                            Log.d("LOGIC TEST", "Movie trialer size: " + movieTrailerVideoContract.getMovieTrialerVideos().size());
-
                             if (movieTrailerVideoContract.getMovieTrialerVideos().isEmpty()) {
                                 tvMovieTrailerLable.setVisibility(View.GONE);
 
@@ -548,7 +538,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @OnClick(R.id.btn_movie_favorite)
     void onClick() {
-        Toast.makeText(getActivity(), "Clicked!", Toast.LENGTH_SHORT).show();
         updateFavouriteFlag(!isMovieFavorite());
     }
 

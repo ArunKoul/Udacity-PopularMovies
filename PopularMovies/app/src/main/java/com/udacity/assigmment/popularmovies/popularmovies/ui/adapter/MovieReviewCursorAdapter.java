@@ -25,15 +25,6 @@ public class MovieReviewCursorAdapter extends CursorRecyclerViewAdapter<MovieRev
 
     Context mContext;
     ViewHolder mVh;
-    View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            MovieReview movieReview = (MovieReview) view.getTag();
-            Toast.makeText(mContext, movieReview.getContent(), Toast.LENGTH_SHORT).show();
-            //mOnMovieSelectedListenerCallback.onMovieSelected(movieReview);
-        }
-    };
-    private MovieFragment.OnMovieSelectedListener mOnMovieSelectedListenerCallback;
 
     public MovieReviewCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor);
@@ -69,5 +60,4 @@ public class MovieReviewCursorAdapter extends CursorRecyclerViewAdapter<MovieRev
         }
 
     }
-
 }

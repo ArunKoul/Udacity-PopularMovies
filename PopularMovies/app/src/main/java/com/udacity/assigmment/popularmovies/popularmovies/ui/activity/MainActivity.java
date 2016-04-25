@@ -69,13 +69,11 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnM
         if (detailFragmentContainer != null) {
             mIsTabLayout = true;
 
-            //if (savedInstanceState == null) {
             mDetailFragment = new DetailFragment();
             mDetailFragment.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail_fragment_container, mDetailFragment)
                     .commit();
-            //}
         }
 
         Stetho.initialize(
@@ -86,12 +84,6 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnM
                                 Stetho.defaultInspectorModulesProvider(this))
                         .build());
     }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -111,20 +103,9 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnM
 
     @Override
     public void onMovieSelected(MovieData movieData, boolean displayFristItem) {
-        //DetailFragment detailFrag = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment);
-
-        //if (detailFrag != null) {
         if (mIsTabLayout) {
-            //detailFrag.updateMovieDetailView(movieData);
             if ((mDetailFragment != null)) {
-                //mDetailFragment.updateMovieDetailView(movieData);
-
                 mDetailFragment.setData(movieData, mIsTabLayout);
-
-                //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                //transaction.replace(R.id.detail_fragment_container, mDetailFragment);
-                //transaction.addToBackStack(null);
-                //transaction.commit();
             }
 
 

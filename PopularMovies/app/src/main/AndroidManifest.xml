@@ -23,10 +23,6 @@
         </activity>
 
         <!--<provider-->
-        <!--android:authorities="com.udacity.assigmment.popularmovies.popularmovies.data.PopularMovieProvider"-->
-        <!--android:name="com.udacity.assigmment.popularmovies.popularmovies.data.generated.PopularMovieProvider"-->
-        <!--android:exported="false"/>-->
-
         <provider
             android:name=".data.generated.PopularMovieProvider"
             android:authorities="@string/content_authority"
