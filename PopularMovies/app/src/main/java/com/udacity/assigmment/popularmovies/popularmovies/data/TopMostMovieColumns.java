@@ -17,10 +17,10 @@ public interface TopMostMovieColumns {
     @DataType(DataType.Type.INTEGER)
     @PrimaryKey
     @AutoIncrement
-    public static final String _ID = BaseColumns._ID;
+    String _ID = BaseColumns._ID;
 
     @DataType(DataType.Type.INTEGER)
     @References(table = PopularMovieDatabase.MOVIES, column = MovieColumns._ID)
-    public static final String MOVIE_ID = "movie_id";
+    String MOVIE_ID = "movie_id";
 
 }

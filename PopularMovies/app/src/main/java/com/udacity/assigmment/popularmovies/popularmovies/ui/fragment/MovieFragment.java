@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.udacity.assigmment.popularmovies.popularmovies.BuildConfig;
@@ -77,6 +79,9 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
     private RecyclerView.LayoutManager mLayoutManager;
     private FavroiteContentObserver favoriteContentObserver;
 
+    private static final String SELECTED_KEY = "selected_position";
+    public int mPosition = GridView.INVALID_POSITION;
+
     public MovieFragment() {
     }
 
@@ -96,8 +101,6 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onResume() {
         super.onResume();
-
-        getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
 
         favoriteContentObserver = new FavroiteContentObserver(new Handler());
         getActivity().getContentResolver().
@@ -125,6 +128,26 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
         mProgressLinearLayout.setVisibility(View.VISIBLE);
 
         updatePopularMovieRx();
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
+            mPosition = savedInstanceState.getInt(SELECTED_KEY);
+        }
+
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                if(msg.what == WHAT) {
+                    MovieData movieData = null;
+
+                    Bundle bundle = msg.getData();
+                    if(bundle != null) movieData = (MovieData) bundle.getParcelable(Constant.BUNDLE_ARG_DATA);
+
+                    mOnMovieSelectedListenerCallback.onMovieSelected(movieData, true, mPosition);
+
+                }
+            }
+        };
+
 
         return rootView;
     }
@@ -207,16 +230,19 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onDestroyView() {
+        getActivity().getContentResolver().unregisterContentObserver(favoriteContentObserver);
+
         super.onDestroyView();
 
         this.subscription.unsubscribe();
         ButterKnife.unbind(this);
 
-        getActivity().getContentResolver().unregisterContentObserver(favoriteContentObserver);
+        mHandler = null;
+
     }
 
     private int getColumnSize() {
-        //-- for number of col --//
+        /*
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         DisplayMetrics outMetrics = new DisplayMetrics();
         display.getMetrics(outMetrics);
@@ -224,7 +250,9 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
         float density = getResources().getDisplayMetrics().density;
         float dpWidth = outMetrics.widthPixels / density;
 
-        //return Math.round(dpWidth/160); //TODO: Fixed value
+        return Math.round(dpWidth/160); //TODO: Fixed value
+        */
+
         return 2;
 
     }
@@ -329,10 +357,27 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
 
         mCursorAdapter.swapCursor(data);
 
-        if (isDataInMovieTable) {
-            MovieData movieData = MovieData.fromCursor(data);
-            mOnMovieSelectedListenerCallback.onMovieSelected(movieData, true);
+        if (mPosition != GridView.INVALID_POSITION) {
+            // If we don't need to restart the loader, and there's a desired position to restore
+            // to, do so now.
+            mRecyclerView.scrollToPosition(mPosition);
         }
+
+
+        Bundle bundle = null;
+        if (isDataInMovieTable) {
+            if(mPosition != GridView.INVALID_POSITION) data.move(mPosition);
+
+            final MovieData movieData = MovieData.fromCursor(data);
+
+            bundle = new Bundle();
+            bundle.putParcelable(Constant.BUNDLE_ARG_DATA, movieData);
+        }
+
+        Message msg = mHandler.obtainMessage(WHAT);
+        msg.setData(bundle);
+
+        mHandler.sendMessage(msg);
 
         if (isDataInMovieTable) {
             mProgressLinearLayout.setVisibility(View.GONE);
@@ -389,9 +434,37 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
         inflater.inflate(R.menu.menu_main, menu);
     }
 
-    // The container Activity must implement this interface so the frag can deliver messages
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        // When tablets rotate, the currently selected list item needs to be saved.
+        // When no item is selected, mPosition will be set to Listview.INVALID_POSITION,
+        // so check for that before storing.
+        if (mPosition != GridView.INVALID_POSITION) {
+            outState.putInt(SELECTED_KEY, mPosition);
+        }
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
+            mPosition = savedInstanceState.getInt(SELECTED_KEY);
+        }
+
+        if (mPosition != GridView.INVALID_POSITION) {
+            // If we don't need to restart the loader, and there's a desired position to restore
+            // to, do so now.
+            mRecyclerView.scrollToPosition(mPosition);
+        }
+
+    }
+
+
     public interface OnMovieSelectedListener {
-        void onMovieSelected(MovieData movieData, boolean displayFristItem);
+        void onMovieSelected(MovieData movieData, boolean displayFristItem, int position);
     }
 
     public interface OnHttpResponseListner {
@@ -421,5 +494,9 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
 
         }
     }
+
+    final int WHAT = 1;
+    private Handler mHandler;
+
 
 }

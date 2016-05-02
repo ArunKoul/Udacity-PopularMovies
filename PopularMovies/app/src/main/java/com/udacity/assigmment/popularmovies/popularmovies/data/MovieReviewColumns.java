@@ -12,18 +12,18 @@ import net.simonvt.schematic.annotation.References;
 public interface MovieReviewColumns {
     @DataType(DataType.Type.TEXT)
     @PrimaryKey
-    public static final String _ID = BaseColumns._ID;
+    String _ID = BaseColumns._ID;
 
     @DataType(DataType.Type.INTEGER)
     @References(table = PopularMovieDatabase.MOVIES, column = MovieColumns._ID)
-    public static final String MOVIE_ID = "movie_id";
+    String MOVIE_ID = "movie_id";
 
     @DataType(DataType.Type.TEXT)
-    public static final String AUTHOR = "author";
+    String AUTHOR = "author";
 
     @DataType(DataType.Type.TEXT)
-    public static final String CONTENT = "content";
+    String CONTENT = "content";
 
     @DataType(DataType.Type.TEXT)
-    public static final String URL = "url";
+    String URL = "url";
 }

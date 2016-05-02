@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,6 @@ import com.udacity.assigmment.popularmovies.popularmovies.contract.MovieContract
 import com.udacity.assigmment.popularmovies.popularmovies.contract.MovieData;
 import com.udacity.assigmment.popularmovies.popularmovies.ui.fragment.DetailFragment;
 import com.udacity.assigmment.popularmovies.popularmovies.ui.fragment.MovieFragment;
-import com.udacity.assigmment.popularmovies.popularmovies.util.Constant;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,16 +33,22 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnM
     Toolbar toolbar;
     @Nullable
     @Bind(R.id.container)
-    View container;
+    View mContainer;
     @Bind(R.id.coordinator)
     View coordinatorLayout;
+
 
     @Nullable
     @Bind(R.id.detail_fragment_container)
     View detailFragmentContainer;
+
     MovieFragment mMovieFragment;
     DetailFragment mDetailFragment;
     private boolean mIsTabLayout;
+
+
+    public static final String DETAILFRAGMENT_TAG = "DETAILFRAGMENT_TAG";
+    public static final String MAINFRAGMENT_TAG = "MAINFRAGMENT_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +56,12 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnM
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        if (container != null) {
+        setSupportActionBar(toolbar);
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
+
+        if (mContainer != null) {
             if (savedInstanceState != null) {
+                updateHomeOption();
                 return;
             }
 
@@ -59,21 +69,23 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnM
             mMovieFragment.setArguments(getIntent().getExtras());
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, mMovieFragment).commit();
+                    .add(R.id.container, mMovieFragment, MAINFRAGMENT_TAG).commit();
         }
-
-        setSupportActionBar(toolbar);
-
-        getSupportFragmentManager().addOnBackStackChangedListener(this);
 
         if (detailFragmentContainer != null) {
             mIsTabLayout = true;
 
-            mDetailFragment = new DetailFragment();
+            if (savedInstanceState == null) {
+                updateDetailFragment(null);
+            }
+
+            /*mDetailFragment = new DetailFragment();
             mDetailFragment.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail_fragment_container, mDetailFragment)
-                    .commit();
+                    .commit();*/
+
+            //updateDetailFragment(movieData);
         }
 
         Stetho.initialize(
@@ -102,21 +114,35 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnM
     }
 
     @Override
-    public void onMovieSelected(MovieData movieData, boolean displayFristItem) {
+    public void onMovieSelected(MovieData movieData, boolean displayFristItem, int position) {
+        //mMovieFragment.mPosition = position;
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.movie_fragment);
+
+        if(fragment != null) {
+            ((MovieFragment)fragment).mPosition = position;
+        }
+
         if (mIsTabLayout) {
-            if ((mDetailFragment != null)) {
-                mDetailFragment.setData(movieData, mIsTabLayout);
-            }
+            //if ((mDetailFragment != null)) {
+                //mDetailFragment.setData(movieData, mIsTabLayout);
+
+                updateDetailFragment(movieData);
+            //Fragment detailFragment = getSupportFragmentManager().findFragmentByTag(DETAILFRAGMENT_TAG);
+
+
+
+
+
+
+            //}
 
 
         } else {
 
             if (!displayFristItem) {
-                DetailFragment newFragment = new DetailFragment();
-                Bundle args = new Bundle();
-                args.putSerializable(Constant.BUNDLE_ARG_DATA, movieData);
-                newFragment.setArguments(args);
 
+                DetailFragment newFragment = DetailFragment.newInstance(movieData);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, newFragment);
                 transaction.addToBackStack(null);
@@ -135,6 +161,10 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnM
 
     @Override
     public void onBackStackChanged() {
+        updateHomeOption();
+    }
+
+    private void updateHomeOption() {
         int stackHeight = getSupportFragmentManager().getBackStackEntryCount();
         if (getSupportActionBar() != null) {
             if (stackHeight > 0) {
@@ -184,6 +214,24 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnM
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + id));
             startActivity(intent);
         }
+    }
+
+    private void updateDetailFragment(MovieData movieData) {
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if(movieData != null) {
+            DetailFragment detailFragment = DetailFragment.newInstance(movieData);
+            transaction.replace(R.id.detail_fragment_container, detailFragment, DETAILFRAGMENT_TAG);
+            //transaction.addToBackStack(null);
+
+        } else {
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(DETAILFRAGMENT_TAG);
+            if(fragment != null) {
+                transaction.remove(fragment);
+            }
+        }
+
+        transaction.commit();
     }
 
 }

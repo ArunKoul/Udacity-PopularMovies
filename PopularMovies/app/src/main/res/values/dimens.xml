@@ -26,4 +26,6 @@
     <dimen name="trailer_item_height">100dp</dimen>
     <dimen name="detail_movie_image_height">200dp</dimen>
     <dimen name="card_small_margin">3dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

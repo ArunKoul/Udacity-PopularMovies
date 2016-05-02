@@ -27,7 +27,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.assigmment.popularmovies.popularmovies.BuildConfig;
@@ -106,17 +105,28 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public DetailFragment() {}
 
 
+    public static DetailFragment newInstance(MovieData movieData) {
+        DetailFragment detailFragment =  new DetailFragment();
+
+        Bundle args = new Bundle();
+        args.putParcelable(Constant.BUNDLE_ARG_DATA, movieData);
+        detailFragment.setArguments(args);
+
+        return detailFragment;
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
         if (savedInstanceState != null) {
-            mMovieData = (MovieData) savedInstanceState.getSerializable(Constant.BUNDLE_ARG_DATA);
+            mMovieData = (MovieData) savedInstanceState.getParcelable(Constant.BUNDLE_ARG_DATA);
         } else {
             Bundle args = getArguments();
             if (args != null) {
-                mMovieData = (MovieData) args.getSerializable(Constant.BUNDLE_ARG_DATA);
+                mMovieData = (MovieData) args.getParcelable(Constant.BUNDLE_ARG_DATA);
             }
         }
 
@@ -126,7 +136,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         //-- Movie Trailer--//
         mMovieTrailerRecyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager mMovieTrailerLayoutManager = new LinearLayoutManager(getActivity());
+        //RecyclerView.LayoutManager mMovieTrailerLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager mMovieTrailerLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mMovieTrailerRecyclerView.setLayoutManager(mMovieTrailerLayoutManager);
 
         mMovieTrailerCursorAdapter = new MovieTrailerCursorAdapter(getActivity(), null);
@@ -155,7 +166,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         Bundle args = getArguments();
         if (args != null) {
-            mMovieData = (MovieData) args.getSerializable(Constant.BUNDLE_ARG_DATA);
+            mMovieData = (MovieData) args.getParcelable(Constant.BUNDLE_ARG_DATA);
         }
 
         updateMovieDetailView(mMovieData);
@@ -378,22 +389,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        outState.putSerializable(Constant.BUNDLE_ARG_DATA, mMovieData);
-    }
-
-    public void setData(MovieData data, boolean mIsTabLayout) {
-        mMovieData = data;
-        if (mIsTabLayout) {
-            isMovieTrailerLoading = true;
-            isMovieReviewLoading = true;
-
-            getLoaderManager().restartLoader(REVIEW_CURSOR_LOADER_ID, null, this);
-            getLoaderManager().restartLoader(TRAILER_CURSOR_LOADER_ID, null, this);
-        }
-
-        mProgressbarLayout.setVisibility(View.VISIBLE);
-        updateMovieDetailView(mMovieData);
+        outState.putParcelable(Constant.BUNDLE_ARG_DATA, mMovieData);
     }
 
     public void insertMovieReviewData(List<MovieReview> movieReviews) {
@@ -470,7 +466,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         Bundle args = getArguments();
         if (args != null) {
-            mMovieData = (MovieData) args.getSerializable(Constant.BUNDLE_ARG_DATA);
+            mMovieData = (MovieData) args.getParcelable(Constant.BUNDLE_ARG_DATA);
         }
 
         getLoaderManager().initLoader(REVIEW_CURSOR_LOADER_ID, null, this);
@@ -602,7 +598,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             case R.id.menuShare:
                 Cursor cursor = mMovieTrailerCursorAdapter.getCursor();
                 if (cursor != null && cursor.moveToFirst()) {
-                    StringBuilder shareText = new StringBuilder(getString(R.string.i_found_intresting_movie))
+                    StringBuffer shareText = new StringBuffer(getString(R.string.i_found_intresting_movie))
                             .append(getString(R.string.whitespace)).append(getString(R.string.check_the_trailer_at))
                             .append(getString(R.string.whitespace)).append(getString(R.string.youtube_base_link))
                             .append(cursor.getString(cursor.getColumnIndex(MovieTrailerColumns.KEY)))
@@ -624,6 +620,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     // The container Activity must implement this interface so the frag can deliver messages
     public interface OnMovieTrailerSelectedListener {
-        void onMovieTrialerSelected(String trailerId);
+        void onMovieTrialerSelected(String reviewId);
+    }
+
+    public interface OnMovieReviewSelectedListener {
+        void onMovieReviewSelected(long reviewId);
     }
 }

@@ -7,18 +7,18 @@
     <item
         android:id="@+id/menuSortPopular"
         android:orderInCategory="100"
-        android:title="Sort By Most Popular"
+        android:title="@string/sort_by_most_popular"
         app:showAsAction="never" />
     <item
         android:id="@+id/menuSortRating"
         android:orderInCategory="100"
-        android:title="Sort By Highest Rated"
+        android:title="@string/sort_by_highest_rated"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menuSortFavorite"
         android:orderInCategory="100"
-        android:title="Favorite"
+        android:title="@string/favorite"
         app:showAsAction="never" />
 
 </menu>

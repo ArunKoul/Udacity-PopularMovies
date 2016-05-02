@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,13 @@ public class MovieCursorAdapter extends CursorRecyclerViewAdapter<MovieCursorAda
         public void onClick(View view) {
             MovieData movieData = (MovieData) view.getTag();
             Toast.makeText(mContext, movieData.getTitle(), Toast.LENGTH_SHORT).show();
-            mOnMovieSelectedListenerCallback.onMovieSelected(movieData, false);
+
+            int position = (int) view.getTag(R.string.position);
+
+            Log.d("TAG", "onClick: " + position);
+
+            MovieCursorAdapter.this.
+            mOnMovieSelectedListenerCallback.onMovieSelected(movieData, false, position);
         }
     };
 
@@ -75,6 +82,9 @@ public class MovieCursorAdapter extends CursorRecyclerViewAdapter<MovieCursorAda
                 .placeholder(R.color.colorPrimary)
                 .into(viewHolder.mImageView);
 
+
+        viewHolder.mTextView.setTag(R.string.position, cursor.getPosition());
+        viewHolder.mImageView.setTag(R.string.position, cursor.getPosition());
 
         viewHolder.mTextView.setOnClickListener(clickListener);
         viewHolder.mImageView.setOnClickListener(clickListener);

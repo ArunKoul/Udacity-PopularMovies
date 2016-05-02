@@ -1,11 +1,14 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="@dimen/trailer_item_height"
-    android:layout_margin="@dimen/card_small_margin">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/card_small_margin"
+    app:cardUseCompatPadding="true">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/card_small_margin">
 
         <ImageView
             android:id="@+id/trailer_item_thumbnail"
@@ -33,7 +36,8 @@
             android:layout_toRightOf="@+id/trailer_item_thumbnail"
             android:maxLines="3"
             android:padding="@dimen/small_margin"
-            android:textSize="@dimen/textview_small_size" />
+            android:textSize="@dimen/textview_small_size"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

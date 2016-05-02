@@ -2,36 +2,33 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/main_card_height"
-    android:layout_marginBottom="@dimen/small_margin"
-    android:layout_marginEnd="@dimen/small_margin"
-    android:layout_marginRight="@dimen/small_margin">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/card_small_margin">
 
         <ImageView
             android:id="@+id/movie_thumbnail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
             android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@android:drawable/btn_star_big_off" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/movie_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_title_height"
-            android:layout_gravity="center_vertical"
             android:background="@color/colorPrimary"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:maxLines="2"
             android:padding="@dimen/small_margin"
             android:textColor="@android:color/primary_text_dark"
-            android:textSize="@dimen/textview_small_size" />
+            android:textSize="@dimen/textview_small_size"
+            android:textStyle="bold"
+            />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

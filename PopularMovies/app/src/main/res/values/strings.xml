@@ -13,7 +13,7 @@
     <string name="pref_sort_by_high_rated" translatable="false">highrated</string>
     <string name="pref_sort_by_favorite" translatable="false">favorites</string>
 
-    <string name="loading_movies">Loading Movies...</string>
+    <string name="loading_movies">Loading Movies…</string>
     <string name="internal_server_error">Internal Server Error</string>
 
 
@@ -30,10 +30,18 @@
     <string name="movie_plot">Movie Plot:</string>
     <string name="trailer">Trailer:</string>
     <string name="review">Review:</string>
-    <string name="loading_movie_trialer_and_reviews_nplease_wait">Loading Movie Trialer and Reviews.\nPlease wait...</string>
-    <string name="loading_movies_nplease_wait">Loading Movies.\nPlease wait...</string>
-    <string name="loading_trailer_and_review">Loading Movie Trailer and Reviews.\nPlease wait...</string>
-    <string name="loading_review">Loading Movie Reviews.\nPlease wait...</string>
-    <string name="loading_trailer">Loading Movie Trailer.\nPlease wait...</string>
+    <string name="loading_movie_trialer_and_reviews_nplease_wait">Loading Movie Trialer and Reviews.\nPlease wait…</string>
+    <string name="loading_movies_nplease_wait">Loading Movies.\nPlease wait…</string>
+    <string name="loading_trailer_and_review">Loading Movie Trailer and Reviews.\nPlease wait…</string>
+    <string name="loading_review">Loading Movie Reviews.\nPlease wait…</string>
+    <string name="loading_trailer">Loading Movie Trailer.\nPlease wait…</string>
+
+    <string name="position">Position</string>
+    <string name="title_activity_review">ReviewActivity</string>
+    <string name="author">"Author: "</string>
+    <string name="share">Share</string>
+    <string name="sort_by_most_popular">Sort By Most Popular</string>
+    <string name="sort_by_highest_rated">Sort By Highest Rated</string>
+    <string name="favorite">Favorite</string>
 
 </resources>

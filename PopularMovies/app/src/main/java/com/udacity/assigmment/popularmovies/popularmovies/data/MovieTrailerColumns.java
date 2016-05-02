@@ -12,24 +12,24 @@ import net.simonvt.schematic.annotation.References;
 public interface MovieTrailerColumns {
     @DataType(DataType.Type.TEXT)
     @PrimaryKey
-    public static final String _ID = BaseColumns._ID;
+    String _ID = BaseColumns._ID;
 
     @DataType(DataType.Type.INTEGER)
     @References(table = PopularMovieDatabase.MOVIES, column = MovieColumns._ID)
-    public static final String MOVIE_ID = "movie_id";
+    String MOVIE_ID = "movie_id";
 
     @DataType(DataType.Type.TEXT)
-    public static final String KEY = "key";
+    String KEY = "key";
 
     @DataType(DataType.Type.TEXT)
-    public static final String NAME = "name";
+    String NAME = "name";
 
     @DataType(DataType.Type.TEXT)
-    public static final String SITE = "site";
+    String SITE = "site";
 
     @DataType(DataType.Type.INTEGER)
-    public static final String SIZE = "size";
+    String SIZE = "size";
 
     @DataType(DataType.Type.TEXT)
-    public static final String TYPE = "type";
+    String TYPE = "type";
 }

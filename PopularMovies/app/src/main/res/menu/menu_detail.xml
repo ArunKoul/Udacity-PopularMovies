@@ -5,9 +5,9 @@
 
     <item
         android:id="@+id/menuShare"
-        android:icon="@android:drawable/ic_menu_share"
+        android:icon="@drawable/ic_share_white"
         android:orderInCategory="100"
-        android:title="Share"
+        android:title="@string/share"
         app:showAsAction="always" />
 
 </menu>

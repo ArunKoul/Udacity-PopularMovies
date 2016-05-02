@@ -8,12 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.udacity.assigmment.popularmovies.popularmovies.R;
-import com.udacity.assigmment.popularmovies.popularmovies.contract.MovieReview;
 import com.udacity.assigmment.popularmovies.popularmovies.data.MovieReviewColumns;
-import com.udacity.assigmment.popularmovies.popularmovies.ui.fragment.MovieFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,7 +24,7 @@ public class MovieReviewCursorAdapter extends CursorRecyclerViewAdapter<MovieRev
     ViewHolder mVh;
 
     public MovieReviewCursorAdapter(Context context, Cursor cursor) {
-        super(context, cursor);
+        super(context, null);
         mContext = context;
     }
 
@@ -44,7 +41,7 @@ public class MovieReviewCursorAdapter extends CursorRecyclerViewAdapter<MovieRev
         DatabaseUtils.dumpCursor(cursor);
 
         viewHolder.mMovieReviewContent.setText(cursor.getString(cursor.getColumnIndex(MovieReviewColumns.CONTENT)));
-        viewHolder.mMovieReviewContentAuthor.setText("Author: " + cursor.getString(cursor.getColumnIndex(MovieReviewColumns.AUTHOR)));
+        viewHolder.mMovieReviewContentAuthor.setText(mContext.getString(R.string.author) + cursor.getString(cursor.getColumnIndex(MovieReviewColumns.AUTHOR)));
 
     }
 

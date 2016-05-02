@@ -195,18 +195,6 @@ public class PopularMovieProvider {
             return new Uri[]{FavoriteMovies.CONTENT_URI, Movies.CONTENT_URI};
         }
 
-
-        @NotifyDelete(paths = Path.FAVORITE_MOVIES + "/#")
-        public static Uri[] onDelete(Context context, Uri uri) {
-            final long favId = Long.valueOf(uri.getPathSegments().get(1));
-            Cursor c = context.getContentResolver().query(uri, null, null, null, null);
-            c.moveToFirst();
-            final long listId = c.getLong(c.getColumnIndex(FavoriteMovieColumns._ID));
-            final long movieId = c.getLong(c.getColumnIndex(FavoriteMovieColumns.MOVIE_ID));
-            c.close();
-
-            return new Uri[]{withId(favId), Movies.withId(movieId), FavoriteMovies.withId(listId),};
-        }
     }
 
     @TableEndpoint(table = PopularMovieDatabase.FAVORITE_MOVIES)
